@@ -4,10 +4,13 @@
   "description": "BSN Screenshot Server",
   "main": "app.js",
   "dependencies": {
-    "express": "latest",
+    "body-parser": "^1.15.2",
     "ejs": "latest",
-    "uid2": "latest",
-    "mime": "latest"
+    "express": "latest",
+    "method-override": "^2.3.6",
+    "mime": "latest",
+    "multer": "^1.1.0",
+    "uid2": "latest"
   },
   "author": "BS Networks Ltd",
   "license": "MIT"

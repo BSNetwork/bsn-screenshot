@@ -1,7 +1,6 @@
 var fs = require('fs');
 var path = require('path');
 var uid = require('uid2');
-var mime = require('mime');
 var config = require('../config.js');
 
 var TARGET_PATH = path.resolve(__dirname, '..' + config.storageDir);
@@ -16,9 +15,15 @@ module.exports = {
     var os;
     var targetPath;
     var targetName;
-    var tempPath = req.files.file.path;
-    var type = mime.lookup(req.files.file.path);
-    var extension = req.files.file.path.split(/[. ]+/).pop();
+		var file = null;
+    for (var i = 0; i < req.files.length; i++) {
+				if (req.files[i].fieldname == config.formName) {
+						file = req.files[i];
+				}
+    }
+		var tempPath = file.path;
+    var type = file.mimetype;
+    var extension = file.originalname.split(/[. ]+/).pop();
 
     if (IMAGE_TYPES.indexOf(type) == -1) {
       return res.send(415, 'Supported image formats: jpeg, jpg, jpe, png.');
@@ -28,6 +33,9 @@ module.exports = {
 
     
     targetPath = path.join(TARGET_PATH, targetName);
+
+		console.log(targetName);
+		console.log(targetPath);
 
     is = fs.createReadStream(tempPath);
 
@@ -48,8 +56,9 @@ module.exports = {
           return res.send(500, 'Something went wrong');
         }
 
-		res.setHeader('Content-Type', 'application/json');
-		res.redirect(config.protocol + '://' + config.domain + ':' + config.port + config.publicUrl + targetName);
+		var url = config.protocol + '://' + config.domain + ':' + config.publicPort + config.publicUrl + targetName;
+		console.log(url);
+				res.redirect(url);
 
 
       });
