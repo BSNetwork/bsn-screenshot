@@ -1,0 +1,14 @@
+{
+  "name": "bsn-screenshot",
+  "version": "0.0.1",
+  "description": "BSN Screenshot Server",
+  "main": "app.js",
+  "dependencies": {
+    "express": "latest",
+    "ejs": "latest",
+    "uid2": "latest",
+    "mime": "latest"
+  },
+  "author": "BS Networks Ltd",
+  "license": "MIT"
+}
